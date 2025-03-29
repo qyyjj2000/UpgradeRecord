@@ -1,10 +1,10 @@
 <?php
 
 // 数据库配置
-const DB_HOST = 'localhost';
-const DB_NAME = 'Record';
-const DB_USER = 'Record';
-const DB_PASS = 'Record123';
+$db_host = 'localhost';
+$db_name = 'Record';
+$db_user = 'Record';
+$db_pass = 'Record123';
 
 // 文件上传配置
 const UPLOAD_DIR = __DIR__ . '/../uploads/';

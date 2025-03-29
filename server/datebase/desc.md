@@ -42,10 +42,12 @@ Record | Record123
 -- 陈堯朴复盘记录表
 CREATE TABLE `chen_yaopu_review` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '序号',
+  `date` int  not null comment '日期',
   `purpose` TEXT NOT NULL COMMENT '目的',
   `initiator` VARCHAR(50) NOT NULL COMMENT '会议发起人',
   `participants` TEXT NOT NULL COMMENT '参会人',
-  `conclusion` TEXT NOT NULL COMMENT '结论'
+  `conclusion` TEXT NOT NULL COMMENT '结论',
+   `screenshot_url` VARCHAR(500) DEFAULT NULL COMMENT '截图地址'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='陈堯朴复盘记录';
 
 // ... 后续其他表结构 ...
