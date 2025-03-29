@@ -45,7 +45,7 @@
 .button_add {
   width: 75%;
   margin: 0 auto;
-  margin-top: 25px;
+  margin-top: 5px;
   display: flex;
   justify-content: flex-start;
   align-items: center;

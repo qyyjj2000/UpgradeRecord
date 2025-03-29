@@ -1,20 +1,26 @@
+<template>
+  <el-tabs v-model="activeTab" @tab-click="handleTabClick">
+    <el-tab-pane label="升级记录" name="upgrade" />
+    <el-tab-pane label="陈堯朴复盘记录" name="review" />
+    <el-tab-pane label="用户管理" name="user" />
+  </el-tabs>
+</template>
 <script setup>
+
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+
+const activeTab = ref('upgrade')
 const router = useRouter()
 
-const navigateTo = (path) => {
-  router.push(path)
+watch(() => router.currentRoute.value.path, (newPath) => {
+  activeTab.value = newPath.slice(1) || 'upgrade'
+})
+
+const handleTabClick = (tab) => {
+  router.push(`/${tab.paneName}`)
 }
 </script>
-
-<template>
-  <div class="nav-buttons">
-    <button @click="navigateTo('/upgrade')">升级记录</button>
-    <button @click="navigateTo('/review')">陈堯朴复盘记录</button>
-    <button @click="navigateTo('/user')">用户管理</button>
-  </div>
-</template>
-
 <style scoped>
 .nav-buttons {
   display: flex;
