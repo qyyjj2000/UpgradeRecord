@@ -35,6 +35,11 @@ abstract class BaseModel {
         return $this->returnResult($query);
     }
 
+    public function list($data) {
+      return $this->returnResult([]);
+    }
+
+
     protected function executeQuery($sql, $params = []) {
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);

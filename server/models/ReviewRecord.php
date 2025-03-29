@@ -36,4 +36,23 @@ class ReviewRecord extends BaseModel {
         return $this->returnResult($obj);
 
     }
+
+    public function list($params) {
+        $conditions = [];
+        $bindings = [];
+
+        if (!empty($params['record_id'])) {
+            $conditions[] = 'record_id = ?';
+            $bindings[] = $params['record_id'];
+        }
+
+        $where = !empty($conditions) ? 'WHERE ' . implode(' AND ', $conditions) : '';
+        $sql = "SELECT * FROM {$this->table} $where";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($bindings);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this->returnResult($result);
+    }
 }

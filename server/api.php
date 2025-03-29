@@ -41,6 +41,9 @@ try {
         case 'get':
             echo json_encode($model->getById($id));
             break;
+        case 'list':
+            echo json_encode($model->list($data));
+            break;
         case 'delete':
             echo json_encode($model->delete($id));
             break;

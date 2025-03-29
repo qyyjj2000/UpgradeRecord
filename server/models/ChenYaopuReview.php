@@ -36,4 +36,32 @@ class ChenYaopuReview extends BaseModel {
 
 
     }
+
+    public function list($data) {
+        $sql = "SELECT * FROM {$this->table}";
+        $params = [];
+        $conditions = [];
+
+        if (!empty($data['start_date']) && !empty($data['end_date'])) {
+            $conditions[] = "date BETWEEN ? AND ?";
+            $params[] = $data['start_date'];
+            $params[] = $data['end_date'];
+        } else if (!empty($data['start_date'])) {
+            $conditions[] = "date >= ?";
+            $params[] = $data['start_date'];
+        } else if (!empty($data['end_date'])) {
+            $conditions[] = "date <= ?";
+            $params[] = $data['end_date'];
+        }
+
+        if (!empty($conditions)) {
+            $sql .= " WHERE " . implode(' AND ', $conditions);
+        }
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $this->returnResult($result);
+    }
 }
