@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>用户管理</h1>
-    <el-button type="primary" @click="showAddDialog">添加用户</el-button>
+    <div class="button_add">
+      <el-button type="primary" @click="showAddDialog">添加用户</el-button>
+    </div>
     <div class="table-container">
       <el-table :data="userList" style="width: 100%" header-align="center" align="center" border>
       <el-table-column prop="id" label="ID" width="180" header-align="center" align="center"></el-table-column>
@@ -41,6 +42,15 @@
   margin: 0 auto;
 }
 
+.button_add {
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .el-button--primary {
   margin-left: 0;
   margin-bottom: 15px;
@@ -69,10 +79,16 @@ h1 + .el-button {
 }
 
 .el-form-item__label {
-  width: 80px;
-  text-align: right;
-  padding-right: 16px;
-  flex-shrink: 0;
+  min-width: 120px;
+  width: 120px;
+  background-color: #f5f7fa;
+  padding: 0 16px;
+  margin-right: 16px;
+  border-radius: 4px;
+}
+
+.el-form-item {
+  margin-bottom: 16px;
 }
 
 .el-input {
