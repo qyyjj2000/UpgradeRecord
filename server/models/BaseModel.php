@@ -8,7 +8,7 @@ abstract class BaseModel {
 
     public function __construct() {
         global $db_host, $db_name, $db_user, $db_pass;
-        // echo("mysql:host={$db_host};dbname={$db_name} ". $db_user."  ".$db_pass);
+        //echo("mysql:host={$db_host};dbname={$db_name} ". $db_user."  ".$db_pass);
         $this->db = new PDO("mysql:host={$db_host};dbname={$db_name}", $db_user, $db_pass);
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

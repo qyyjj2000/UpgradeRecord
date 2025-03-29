@@ -2,8 +2,9 @@
 
 // 数据库配置
 $db_host = 'localhost';
+// $db_user = 'Record';
 $db_name = 'Record';
-$db_user = 'Record';
+$db_user = 'Record123';
 $db_pass = 'Record123';
 
 // 文件上传配置

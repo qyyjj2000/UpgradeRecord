@@ -17,11 +17,11 @@ import HelloWorld from './components/HelloWorld.vue'
   width: 100%;
 }
 
-.app-container > HelloWorld {
+.app-container > :deep(HelloWorld) {
   height: 5%;
 }
 
-.app-container > router-view {
+.app-container > :deep(.router-view) {
   height: 95%;
 }
 
