@@ -36,6 +36,74 @@
   </div>
 </template>
 
+<script setup>
+import api from '@/utils/api.js'
+import { onMounted,ref } from 'vue'
+
+const userList = ref([])
+const dialogVisible = ref(false)
+const dialogTitle = ref('添加用户')
+const formData = ref({
+  username: '',
+  position: ''
+})
+const currentId = ref(null)
+
+const fetchUserList = async () => {
+  try {
+        const response = await api.get('/api.php?table=user');
+        console.log(response.data);
+
+        userList.value = Array.isArray(response.data.data) ? response.data.data : [];
+      } catch (error) {
+        console.error('获取用户列表失败:', error);
+        userList.value = [];
+      }
+}
+
+const showAddDialog = () => {
+      dialogTitle.value = '添加用户';
+      formData.value = { username: '', position: '' };
+      currentId.value = null;
+      dialogVisible.value = true;
+}
+
+const handleEdit = (row) => {
+      dialogTitle.value = '编辑用户';
+      formData.value = { username: row.username, position: row.position };
+      currentId.value = row.id; 
+      dialogVisible.value = true;
+}
+
+const handleDelete = async (row) => {
+  try {
+    await api.delete(`/api.php?table=user&action=delete&id=${encodeURIComponent(row.id)}`);
+    fetchUserList();
+  }catch (error) {
+    console.error('删除用户失败:', error); 
+  }
+
+}
+
+const submitForm = async () => {
+  try {
+    if (currentId.value) {
+      await api.put(`/api.php?table=user&action=${encodeURIComponent('update')}&id=${encodeURIComponent(currentId.value)}`, formData.value);
+    } else{
+      await api.post(`/api.php?table=user&action=${encodeURIComponent('create')}`, formData.value);
+    } 
+    dialogVisible.value = false;
+    fetchUserList();
+  }catch (error) {
+    console.error('提交表单失败:', error); 
+  }
+}
+
+onMounted(() => {
+  fetchUserList()
+})
+
+</script>
 <style scoped>
 .table-container {
   width: 75%;
@@ -125,74 +193,3 @@ h1 + .el-button {
   padding: 10px 20px;
 }
 </style>
-
-<script>
-import api from '../api/index.js'
-
-export default {
-  name: 'UserManagement',
-  data() {
-    return {
-      userList: [],
-      dialogVisible: false,
-      dialogTitle: '',
-      formData: {
-        username: '',
-        position: ''
-      },
-      currentId: null
-    }
-  },
-  created() {
-    this.fetchUsers();
-  },
-  methods: {
-    async fetchUsers() {
-      try {
-        const response = await api.get('/api.php?table=user');
-        console.log(response.data);
-
-        this.userList = Array.isArray(response.data.data) ? response.data.data : [];
-      } catch (error) {
-        console.error('获取用户列表失败:', error);
-        this.userList = [];
-      }
-    },
-    showAddDialog() {
-      this.dialogTitle = '添加用户';
-      this.formData = { username: '', position: '' };
-      this.currentId = null;
-      this.dialogVisible = true;
-    },
-    handleEdit(row) {
-      this.dialogTitle = '编辑用户';
-      this.formData = { username: row.username, position: row.position };
-      this.currentId = row.id;
-      this.dialogVisible = true;
-    },
-    async submitForm() {
-      try {
-        if (this.currentId) {
-          // 更新用户
-          await api.put(`/api.php?table=user&action=update&id=${this.currentId}`, this.formData);
-        } else {
-          // 添加用户
-          await api.post('/api.php?table=user&action=create', this.formData);
-        }
-        this.dialogVisible = false;
-        this.fetchUsers();
-      } catch (error) {
-        console.error('操作失败:', error);
-      }
-    },
-    async handleDelete(row) {
-      try {
-        await api.delete(`/api.php?table=user&action=delete&id=${row.id}`);
-        this.fetchUsers();
-      } catch (error) {
-        console.error('删除失败:', error);
-      }
-    }
-  }
-}
-</script>

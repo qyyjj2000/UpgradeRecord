@@ -30,6 +30,9 @@ try {
     };
 
     $data = json_decode(file_get_contents('php://input'), true);
+    // if($data == null){
+    //     $data = $_POST;
+    // }
 
     switch ($action) {
         case 'create':
@@ -42,6 +45,7 @@ try {
             echo json_encode($model->getById($id));
             break;
         case 'list':
+            // var_dump($data);
             echo json_encode($model->list($data));
             break;
         case 'delete':

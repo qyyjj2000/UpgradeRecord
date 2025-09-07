@@ -3,10 +3,10 @@ require_once 'BaseModel.php';
 
 class UpgradeRecord extends BaseModel {
     protected $table = 'upgrade_record';
-    protected $fields = ['country', 'content', 'update_time', 'updater', 'tester', 'type', 'platform', 'review_conclusion', 'remark'];
+    protected $fields = ['country', 'content', 'update_time', 'updater', 'tester', 'type', 'platform', 'review_conclusion', 'remark','is_review'];
 
     public function create($data) {
-        $sql = "INSERT INTO {$this->table} (country, content, update_time, updater, tester, type, platform, review_conclusion, remark) VALUES (?, ?, ?, ?,?, ?, ?, ?,?)";
+        $sql = "INSERT INTO {$this->table} (country, content, update_time, updater, tester, type, platform, review_conclusion,is_review, remark) VALUES (?, ?, ?, ?,?, ?, ?, ?,?,?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['country'],
@@ -17,6 +17,7 @@ class UpgradeRecord extends BaseModel {
             $data['type'],
             $data['platform'],
             $data['review_conclusion'],
+            $data['is_review'],
             $data['remark']
         ]);
         $obj = $this->db->lastInsertId();
@@ -26,7 +27,7 @@ class UpgradeRecord extends BaseModel {
     }
 
     public function update($id, $data) {
-        $sql = "UPDATE {$this->table} SET country=?, content=?, update_time=?, updater=? , tester=? , type=? , platform=? , review_conclusion=? , remark=? WHERE id=?";
+        $sql = "UPDATE {$this->table} SET country=?, content=?, update_time=?, updater=? , tester=? , type=? , platform=? , review_conclusion=? , remark=?,is_review=? WHERE id=?";
         $stmt = $this->db->prepare($sql);
         $obj = $stmt->execute([
             $data['country'],
@@ -38,6 +39,7 @@ class UpgradeRecord extends BaseModel {
             $data['platform'],
             $data['review_conclusion'],
             $data['remark'],
+            $data['is_review'],
             $id
         ]);
 

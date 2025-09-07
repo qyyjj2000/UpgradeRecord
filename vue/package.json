@@ -10,17 +10,19 @@
   },
   "dependencies": {
     "@vueup/vue-quill": "^1.2.0",
-    "axios": "^1.8.4",
-    "compressorjs": "^1.2.1",
+    "axios": "^1.8.3",
+    "dompurify": "^3.2.4",
+    "element-plus": "^2.9.6",
     "quill": "^2.0.3",
+    "quill-image-drop-and-paste": "^2.0.1",
     "vue": "^3.5.13",
+    "vue-quill": "^1.5.1",
     "vue-router": "^4.5.0",
-    "vue3-quill": "^0.3.1"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.3",
-    "element-plus": "^2.9.7",
-    "unplugin-vue-components": "^28.4.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.2",
     "vite": "^6.2.0"
   }
 }
